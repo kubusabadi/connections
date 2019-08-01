@@ -126,8 +126,9 @@ void WinsockSocket::receive ()
     while (true)
     {
         iResult = recv (clientSocket, recvbuf, DEFAULT_BUFLEN, 0);
+        recvbuf[iResult] = '\0';
         if(iResult > 0)
-            std::cout << "Bytes received: " << iResult << std::endl;
+            std::cout << "Bytes received: " << iResult << " : " << recvbuf << std::endl;
     }
 }
 
