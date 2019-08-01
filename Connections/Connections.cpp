@@ -1,22 +1,13 @@
-﻿// Connections.cpp: definiuje punkt wejścia dla aplikacji.
-//
-
+﻿
 #include "Connections.h"
-#include "Sockets/TCPConnection.h"
+
+#ifdef _WIN32
+#include "Sockets/WinsockWrapper.h"
+#endif
 
 using namespace kowl;
 
-void printWelcome ();
-
-int main()
-{
-    printWelcome ();
-
-    TCPConnection tpcConn;
-	return 0;
-}
-
-void printWelcome ()
+void MainWindow::printWelcome () const
 {
     std::cout << R"(
    ____                            _   _                 
@@ -26,6 +17,15 @@ void printWelcome ()
   \____\___/|_| |_|_| |_|\___|\___|\__|_|\___/|_| |_|___/
                                                        
 )";
-                         
-    std::cout << "___________________________________________________________\n";
+}
+
+int main()
+{
+    MainWindow mw;
+    mw.printWelcome ();
+#ifdef _WIN32
+    WinsockWrapper ww;
+#endif
+
+	return 0;
 }
