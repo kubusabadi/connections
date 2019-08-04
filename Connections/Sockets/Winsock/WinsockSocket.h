@@ -15,9 +15,9 @@
 namespace connections
 {
 
-struct SocketException
+struct BadWinsock
 {
-    SocketException (std::string msg) : msg (msg) {}
+    BadWinsock (std::string msg) : msg (msg) {}
     std::string msg;
 };
 
@@ -25,22 +25,23 @@ class WinsockSocket
 {
 public:
     WinsockSocket ();
-    WinsockSocket (std::string address, uint16_t port);
-    WinsockSocket (uint32_t address, uint16_t port);
+    WinsockSocket (uint16_t port, std::string address);
+    WinsockSocket (uint16_t port, uint32_t address);
     WinsockSocket (uint16_t port); // localhost
     ~WinsockSocket ();
     void shutdown ();
 
     void listen ();
     void accept ();
-
     void receive ();
 
 private:
+    uint16_t port = 0;
     SOCKET listenSocket = INVALID_SOCKET;
     SOCKET clientSocket = INVALID_SOCKET;
-
     addrinfo* adrResult = NULL;
+
+    void initWinSockAPI ();
 };
 
 }

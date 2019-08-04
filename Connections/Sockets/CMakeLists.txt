@@ -10,5 +10,4 @@ set_property(TARGET Sockets PROPERTY CXX_STANDARD 17)
 if (WIN32)
     add_subdirectory("Winsock")
 	target_link_libraries(Sockets wsock32 ws2_32 Winsock)
-	
 endif()

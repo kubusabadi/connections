@@ -5,7 +5,7 @@
 namespace connections
 {
 
-WinsockWrapper::WinsockWrapper () : ws("", 50000)
+WinsockWrapper::WinsockWrapper () : ws(50000, "")
 {
     ws.listen ();
     ws.accept ();
