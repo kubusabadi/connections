@@ -3,7 +3,7 @@
 #ifndef _TCP_CONNECTION_H_
 #define _TCP_CONNECTION_H_
 
-namespace kowl
+namespace connections
 {
 
 class TCPConnection

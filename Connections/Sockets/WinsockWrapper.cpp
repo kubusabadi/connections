@@ -2,7 +2,7 @@
 
 #include "WinsockWrapper.h"
 
-namespace kowl
+namespace connections
 {
 
 WinsockWrapper::WinsockWrapper () : ws("", 50000)

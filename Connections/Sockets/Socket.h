@@ -5,7 +5,7 @@
 
 #include <stdint.h>
 
-namespace kowl
+namespace connections
 {
 
 class SocketListener

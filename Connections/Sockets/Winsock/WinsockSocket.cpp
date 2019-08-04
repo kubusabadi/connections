@@ -3,7 +3,7 @@
 #include "WinsockSocket.h"
 #include <iostream>
 
-namespace kowl
+namespace connections
 {
 
 WinsockSocket::WinsockSocket ()

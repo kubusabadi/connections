@@ -5,7 +5,7 @@
 
 #include "Socket.h"
 
-namespace kowl
+namespace connections
 {
 
 class SocketFactory

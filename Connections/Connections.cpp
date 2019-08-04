@@ -5,7 +5,7 @@
 #include "Sockets/WinsockWrapper.h"
 #endif
 
-using namespace kowl;
+using namespace connections;
 
 void MainWindow::printWelcome () const
 {

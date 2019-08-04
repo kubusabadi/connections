@@ -8,7 +8,7 @@
 
 #include "Winsock/WinsockSocket.h"
 
-namespace kowl
+namespace connections
 {
 
 class WinsockWrapper

@@ -2,7 +2,7 @@
 #include "TCPConnection.h"
 #include <iostream>
 
-namespace kowl
+namespace connections
 {
 TCPConnection::TCPConnection ()
 {
