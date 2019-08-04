@@ -3,6 +3,8 @@
 #include "WinsockSocket.h"
 #include "..//..//CommonUtils/Printer.h"
 #include <iostream>
+#include <string>
+#include "Error.h"
 
 namespace connections
 {
@@ -15,37 +17,8 @@ WinsockSocket::WinsockSocket ()
 
 WinsockSocket::WinsockSocket (uint16_t port, std::string address) : port{port}
 {
-    //std::cout << "WinsockSocket" << std::endl;
-    //WSADATA wsadata;
-    //int result = WSAStartup (MAKEWORD (2, 2), &wsadata);
-    //if (result != 0) //If winsock API failed to start up
-    //{
-    //    std::cout << "winsosck " << std::endl;
-    //    // TODO: Throw exception
-    //}
-
-    //if (LOBYTE (wsadata.wVersion) != 2 || HIBYTE (wsadata.wVersion) != 2) //If version received does not match version requested (2.2)
-    //{
-    //    std::cout << "winsock" << std::endl;
-    //    // TODO: Throw exception
-    //}
- 
     initWinSockAPI ();
-    
-    int result;
-    struct addrinfo hints;
-    ZeroMemory (&hints, sizeof (hints));
-    hints.ai_family = AF_INET;
-    hints.ai_socktype = SOCK_STREAM;
-    hints.ai_protocol = IPPROTO_TCP;
-    hints.ai_flags = AI_PASSIVE;
-    // Resolve the server address and port
-    result = getaddrinfo (NULL, "50000", &hints, &adrResult);
-    
-    if (result != 0) {
-        std::cout << " error server address" << std::endl;
-        // TODO : throw exception
-    }
+    resolveAddress ();
 }
 
 WinsockSocket::WinsockSocket (uint16_t port, uint32_t address) : port{port}
@@ -63,21 +36,40 @@ WinsockSocket::~WinsockSocket ()
 
 void WinsockSocket::initWinSockAPI ()
 {
-    //std::cout << "[Sockets] Initi" << std::endl;
-    PRINTER << "Initializing WinSock API (2,2)";
     WSADATA wsadata;
     int result = WSAStartup (MAKEWORD (2, 2), &wsadata);
-    if (result != 0) //If winsock API failed to start up
+   
+    if (result != 0)
     {
-        std::cout << "winsosck " << std::endl;
-        // TODO: Throw exception
+        throw new BadWinsock{getWSAError(WSAGetLastError())};
     }
 
-    if (LOBYTE (wsadata.wVersion) != 2 || HIBYTE (wsadata.wVersion) != 2) //If version received does not match version requested (2.2)
+    if (LOBYTE (wsadata.wVersion) != 2 || HIBYTE (wsadata.wVersion) != 2)
     {
-        std::cout << "winsock" << std::endl;
-        // TODO: Throw exception
+        throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
     }
+
+    PRINTER << "Initializing WinSock API (2,2)" << Printer::endl;
+}
+
+void WinsockSocket::resolveAddress ()
+{
+    int result;
+    struct addrinfo hints;
+    
+    ZeroMemory (&hints, sizeof (hints));
+    hints.ai_family = AF_INET;
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_protocol = IPPROTO_TCP;
+    hints.ai_flags = AI_PASSIVE;
+
+    result = getaddrinfo (NULL, std::to_string(port).c_str(), &hints, &adrResult);
+
+    if (result != 0) {
+        throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
+    }
+
+    PRINTER << "Resolve address " << port << Printer::endl;
 }
 
 void WinsockSocket::shutdown ()
@@ -88,37 +80,23 @@ void WinsockSocket::shutdown ()
 void WinsockSocket::listen ()
 {
     int iResult;
-    // Create a SOCKET for connecting to server
+
     listenSocket = socket (adrResult->ai_family, adrResult->ai_socktype, adrResult->ai_protocol);
    
     if (listenSocket == INVALID_SOCKET) {
-        std::cout << "error listen " << WSAGetLastError () << std::endl;
-        //printf ("socket failed with error: %ld\n", WSAGetLastError ());
-        //freeaddrinfo (result);
-        //WSACleanup ();
-        //return 1;
+        throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
     }
 
-    // Setup the TCP listening socket
     iResult = bind (listenSocket, adrResult->ai_addr, (int)adrResult->ai_addrlen);
     if (iResult == SOCKET_ERROR) {
-        std::cout << "error bind " << std::endl;
-        //printf ("bind failed with error: %d\n", WSAGetLastError ());
-        //freeaddrinfo (result);
-        //closesocket (ListenSocket);
-        //WSACleanup ();
-        //return 1;
+        throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
     }
 
     freeaddrinfo (adrResult);
 
     iResult = ::listen (listenSocket, SOMAXCONN);
     if (iResult == SOCKET_ERROR) {
-        std::cout << "error listen " << std::endl;
-        //printf ("listen failed with error: %d\n", WSAGetLastError ());
-        //closesocket (ListenSocket);
-        //WSACleanup ();
-        //return 1;
+        throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
     }
 }
 
@@ -133,11 +111,7 @@ void WinsockSocket::accept()
 
     clientSocket = ::accept (listenSocket, NULL, NULL);
     if (clientSocket == INVALID_SOCKET) {
-        std::cout << "error accept " << std::endl;
-        //printf ("accept failed: %d\n", WSAGetLastError ());
-        //closesocket (ListenSocket);
-        //WSACleanup ();
-        //return 1;
+        throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
     }
 }
 

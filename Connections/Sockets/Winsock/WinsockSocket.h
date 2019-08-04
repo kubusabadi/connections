@@ -15,12 +15,6 @@
 namespace connections
 {
 
-struct BadWinsock
-{
-    BadWinsock (std::string msg) : msg (msg) {}
-    std::string msg;
-};
-
 class WinsockSocket
 {
 public:
@@ -42,6 +36,7 @@ private:
     addrinfo* adrResult = NULL;
 
     void initWinSockAPI ();
+    void resolveAddress ();
 };
 
 }

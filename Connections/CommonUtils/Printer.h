@@ -10,15 +10,32 @@ namespace connections
 class Printer
 {
 public:
+    struct Endl {};
+    static Endl endl;
+
     Printer (std::ostream& out, std::string tag) : out{out}, tag{tag} { };
 
-    const Printer& operator<<(std::string msg) const
+    template<typename T>
+    const Printer& operator<<(T msg) const
     {
-        out << "[" << tag << "] "  << msg << std::endl;
+        if (startLine)
+        {
+            out << "[" << tag << "] ";
+            startLine = false;
+        }
+        out << msg;
+        return *this;
+    }
+
+    const Printer& operator<<(Endl e) const
+    {
+        out << std::endl;
+        startLine = true;
         return *this;
     }
 
 private:
+    mutable bool startLine = true;
     std::ostream& out;
     std::string tag;
 };
