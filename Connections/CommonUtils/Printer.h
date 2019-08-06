@@ -27,6 +27,23 @@ public:
         return *this;
     }
 
+    const Printer& operator<<(std::string msg) const
+    {
+        if (startLine)
+        {
+            out << "[" << tag << "] ";
+            startLine = false;
+        }
+        out << msg;
+
+        if (msg.back () == '\n')
+        {
+            startLine = true;
+        }
+
+        return *this;
+    }
+
     const Printer& operator<<(Endl e) const
     {
         out << std::endl;
