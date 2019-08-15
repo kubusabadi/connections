@@ -1,15 +1,36 @@
-﻿// Connections.h: plik dołączany dla standardowych systemowych plików dołączanych,
-// lub pliki dołączane specyficzne dla projektu.
+﻿
+#ifndef _CONNECTIONS_H_
+#define _CONNECTIONS_H_
 
-#pragma once
+#include <map>
+#include <string>
 
-#include <iostream>
-#include "Connections.h"
-
-class MainWindow
+namespace connections 
 {
-public:
-    void printWelcome () const;
+
+enum class Mode 
+{
+    RECEIVE_TCP = 1,
+    SEND_TCP
 };
 
-// TODO: W tym miejscu przywołaj dodatkowe nagłówki wymagane przez program.
+const std::map<Mode, std::string> modesStrings { 
+    { Mode::RECEIVE_TCP, "receive tcp" },
+    { Mode::SEND_TCP, "send tcp"}
+};
+
+class MainWindow;
+
+class Connections
+{
+public:
+    Connections (Mode mode);
+
+private:
+    void setupMode (Mode mode);
+
+};
+
+}
+
+#endif

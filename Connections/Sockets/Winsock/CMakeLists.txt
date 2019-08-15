@@ -2,8 +2,8 @@
 cmake_minimum_required (VERSION 3.10)
 
 add_library(Winsock 
-	"WinsockSocket.h" 
-	"WinsockSocket.cpp" 
+	"WinsockSocketServer.h" 
+	"WinsockSocketServer.cpp" 
     "Error.h"
     "Error.cpp"
 )

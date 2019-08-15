@@ -1,6 +1,7 @@
 
 #ifdef _WIN32
-#include "WinsockSocket.h"
+
+#include "WinsockSocketServer.h"
 #include "..//..//CommonUtils/Printer.h"
 #include <iostream>
 #include <string>
@@ -11,30 +12,22 @@ namespace connections
 
 static const Printer PRINTER (std::cout, "Sockets");
 
-WinsockSocket::WinsockSocket ()
+WinsockSocketServer::WinsockSocketServer ()
 {
 }
 
-WinsockSocket::WinsockSocket (uint16_t port, std::string address) : port{port}
+WinsockSocketServer::WinsockSocketServer (uint16_t port) : port{port}
 {
     initWinSockAPI ();
     resolveAddress ();
 }
 
-WinsockSocket::WinsockSocket (uint16_t port, uint32_t address) : port{port}
-{
-}
-
-WinsockSocket::WinsockSocket (uint16_t port) : port{port}
-{
-}
-
-WinsockSocket::~WinsockSocket ()
+WinsockSocketServer::~WinsockSocketServer ()
 {
     shutdown ();
 }
 
-void WinsockSocket::initWinSockAPI ()
+void WinsockSocketServer::initWinSockAPI ()
 {
     WSADATA wsadata;
     int result = WSAStartup (MAKEWORD (2, 2), &wsadata);
@@ -52,7 +45,7 @@ void WinsockSocket::initWinSockAPI ()
     PRINTER << "Initializing WinSock API (2,2)" << Printer::endl;
 }
 
-void WinsockSocket::resolveAddress ()
+void WinsockSocketServer::resolveAddress ()
 {
     int result;
     struct addrinfo hints;
@@ -72,12 +65,12 @@ void WinsockSocket::resolveAddress ()
     PRINTER << "Resolve address " << port << Printer::endl;
 }
 
-void WinsockSocket::shutdown ()
+void WinsockSocketServer::shutdown ()
 {
     WSACleanup ();
 }
 
-void WinsockSocket::listen ()
+void WinsockSocketServer::listen ()
 {
     int iResult;
 
@@ -100,14 +93,12 @@ void WinsockSocket::listen ()
     }
 }
 
-void WinsockSocket::accept()
+void WinsockSocketServer::accept()
 {
     if (listenSocket == INVALID_SOCKET)
     {
         return;
     }
-
-    int iResult;
 
     clientSocket = ::accept (listenSocket, NULL, NULL);
     if (clientSocket == INVALID_SOCKET) {
@@ -115,19 +106,23 @@ void WinsockSocket::accept()
     }
 }
 
-void WinsockSocket::receive ()
+int WinsockSocketServer::receive (char* buffer, int lenght)
 {
-    const int DEFAULT_BUFLEN = 1024;
-    char recvbuf[DEFAULT_BUFLEN];
-    int iResult;
-
-    while (true)
+    int iResult = recv (clientSocket, buffer, lenght, 0);
+    if (iResult == lenght)
     {
-        iResult = recv (clientSocket, recvbuf, DEFAULT_BUFLEN, 0);
-        recvbuf[iResult] = '\0';
-        if(iResult > 0)
-            std::cout << "Bytes received: " << iResult << " : " << recvbuf << std::endl;
+        buffer[iResult-1] = '\0';
     }
+    else
+    {
+        buffer[iResult] = '\0';
+    }
+    if (iResult > 0)
+    {
+        std::cout << "Bytes received: " << iResult << " : " << buffer << std::endl;
+    }
+
+    return iResult;
 }
 
 }

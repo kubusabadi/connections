@@ -3,8 +3,8 @@
 
 #pragma once
 
-#ifndef _WINSOCK_SOCKET_H_
-#define _WINSOCK_SOCKET_H_
+#ifndef _WINSOCK_SOCKET_SERVER_H_
+#define _WINSOCK_SOCKET_SERVER_H_
 
 #include <string>
 
@@ -15,19 +15,17 @@
 namespace connections
 {
 
-class WinsockSocket
+class WinsockSocketServer
 {
 public:
-    WinsockSocket ();
-    WinsockSocket (uint16_t port, std::string address);
-    WinsockSocket (uint16_t port, uint32_t address);
-    WinsockSocket (uint16_t port); // localhost
-    ~WinsockSocket ();
+    WinsockSocketServer ();
+    WinsockSocketServer (uint16_t port); // localhost
+    ~WinsockSocketServer ();
     void shutdown ();
 
     void listen ();
     void accept ();
-    void receive ();
+    int receive (char* buffer, int lenght);
 
 private:
     uint16_t port = 0;
@@ -41,6 +39,5 @@ private:
 
 }
 
-#endif // !_WINSOCK_SOCKET_H_
-
+#endif
 #endif

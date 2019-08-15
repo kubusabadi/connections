@@ -1,37 +1,55 @@
 ﻿
+/*
+ * Created by Jakub Hejwowski 2019
+ * kubusabadi@gmail.com
+*/
+
+
 #include "Connections.h"
+#include "MainWindow.h"
+
+#include <iostream>
 
 #ifdef _WIN32
 #include "Sockets/WinsockWrapper.h"
 #endif
 
-using namespace connections;
-
-void MainWindow::printWelcome () const
+namespace connections
 {
-    std::cout << R"(
-   ____                            _   _                 
-  / ___|___  _ __  _ __   ___  ___| |_(_) ___  _ __  ___ 
- | |   / _ \| '_ \| '_ \ / _ \/ __| __| |/ _ \| '_ \/ __|
- | |__| (_) | | | | | | |  __/ (__| |_| | (_) | | | \__ \
-  \____\___/|_| |_|_| |_|\___|\___|\__|_|\___/|_| |_|___/
-                                                       
-___________________________________________________________
 
-by Jakub Hejwowski <kubusabadi>
-___________________________________________________________
-
-
-)";
+Connections::Connections (Mode mode)
+{
+    std::cout << " Picked mode: " << (int)mode << std::endl;
 }
+
+void Connections::setupMode (Mode mode)
+{
+    switch (mode)
+    {
+    case Mode::RECEIVE_TCP:
+        break;
+    case Mode::SEND_TCP:
+        break;
+    }
+}
+
+}
+
+using namespace connections;
 
 int main()
 {
     MainWindow mw;
     mw.printWelcome ();
-#ifdef _WIN32
-    WinsockWrapper ww;
-#endif
+    
+    Mode mode = mw.promptForMode ();
 
+    mw.printWelcome ();
+    Connections connections{ mode };
+
+#ifdef _WIN32
+    //WinsockWrapper ww;
+#endif
+    
 	return 0;
 }

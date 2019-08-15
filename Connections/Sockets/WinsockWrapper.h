@@ -6,7 +6,8 @@
 #ifndef _WINSOCK_WRAPPER_H_
 #define _WINSOCK_WRAPPER_H_
 
-#include "Winsock/WinsockSocket.h"
+#include "Winsock/WinsockSocketServer.h"
+#include "Winsock/WinsockSocketClient.h"
 
 namespace connections
 {
@@ -18,7 +19,7 @@ public:
     ~WinsockWrapper ();
 
 private:
-    WinsockSocket ws;
+    WinsockSocketServer ws;
 };
 
 }
