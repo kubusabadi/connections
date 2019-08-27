@@ -1,10 +1,16 @@
-
+/*
+ * Created by Jakub Hejwowski 2019
+ * kubusabadi@yahoo.com
+*/
 #ifdef _WIN32
 
 #pragma once
 
 #ifndef _WINSOCK_SOCKET_SERVER_H_
 #define _WINSOCK_SOCKET_SERVER_H_
+
+
+#include "WinsockSocket.h"
 
 #include <string>
 
@@ -15,26 +21,27 @@
 namespace connections
 {
 
-class WinsockSocketServer
+class WinsockSocketServer : public WinsockSocket
 {
 public:
     WinsockSocketServer ();
-    WinsockSocketServer (uint16_t port); // localhost
-    ~WinsockSocketServer ();
-    void shutdown ();
+    WinsockSocketServer (uint16_t srvPort); // localhost
+    virtual ~WinsockSocketServer ();
 
-    void listen ();
-    void accept ();
-    int receive (char* buffer, int lenght);
+    void listen () override;
+    void accept () override;
+    void bind () override;
+    void connect () override;
 
-private:
+    int receive (char* buffer, int lenght) override;
+
+protected:
     uint16_t port = 0;
     SOCKET listenSocket = INVALID_SOCKET;
     SOCKET clientSocket = INVALID_SOCKET;
-    addrinfo* adrResult = NULL;
+    addrinfo* addressInfo = NULL;
 
-    void initWinSockAPI ();
-    void resolveAddress ();
+    virtual void setupAddressInfo () = 0;
 };
 
 }

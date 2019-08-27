@@ -1,4 +1,7 @@
-
+/*
+ * Created by Jakub Hejwowski 2019
+ * kubusabadi@yahoo.com
+*/
 #ifdef _WIN32
 
 #include "WinsockSocketServer.h"
@@ -16,78 +19,23 @@ WinsockSocketServer::WinsockSocketServer ()
 {
 }
 
-WinsockSocketServer::WinsockSocketServer (uint16_t port) : port{port}
+WinsockSocketServer::WinsockSocketServer (uint16_t srvPort) : WinsockSocketServer{}
 {
-    initWinSockAPI ();
-    resolveAddress ();
+    port = srvPort;
 }
 
 WinsockSocketServer::~WinsockSocketServer ()
 {
-    shutdown ();
-}
-
-void WinsockSocketServer::initWinSockAPI ()
-{
-    WSADATA wsadata;
-    int result = WSAStartup (MAKEWORD (2, 2), &wsadata);
-   
-    if (result != 0)
-    {
-        throw new BadWinsock{getWSAError(WSAGetLastError())};
-    }
-
-    if (LOBYTE (wsadata.wVersion) != 2 || HIBYTE (wsadata.wVersion) != 2)
-    {
-        throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
-    }
-
-    PRINTER << "Initializing WinSock API (2,2)" << Printer::endl;
-}
-
-void WinsockSocketServer::resolveAddress ()
-{
-    int result;
-    struct addrinfo hints;
-    
-    ZeroMemory (&hints, sizeof (hints));
-    hints.ai_family = AF_INET;
-    hints.ai_socktype = SOCK_STREAM;
-    hints.ai_protocol = IPPROTO_TCP;
-    hints.ai_flags = AI_PASSIVE;
-
-    result = getaddrinfo (NULL, std::to_string(port).c_str(), &hints, &adrResult);
-
-    if (result != 0) {
-        throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
-    }
-
-    PRINTER << "Resolve address " << port << Printer::endl;
-}
-
-void WinsockSocketServer::shutdown ()
-{
-    WSACleanup ();
 }
 
 void WinsockSocketServer::listen ()
 {
-    int iResult;
-
-    listenSocket = socket (adrResult->ai_family, adrResult->ai_socktype, adrResult->ai_protocol);
-   
-    if (listenSocket == INVALID_SOCKET) {
-        throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
+    if (listenSocket == INVALID_SOCKET)
+    {
+        throw new BadWinsock{ "listen socket not initialized" };
     }
 
-    iResult = bind (listenSocket, adrResult->ai_addr, (int)adrResult->ai_addrlen);
-    if (iResult == SOCKET_ERROR) {
-        throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
-    }
-
-    freeaddrinfo (adrResult);
-
-    iResult = ::listen (listenSocket, SOMAXCONN);
+    int iResult = ::listen (listenSocket, SOMAXCONN);
     if (iResult == SOCKET_ERROR) {
         throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
     }
@@ -97,7 +45,7 @@ void WinsockSocketServer::accept()
 {
     if (listenSocket == INVALID_SOCKET)
     {
-        return;
+        throw new BadWinsock{ "address info didn't setup" };
     }
 
     clientSocket = ::accept (listenSocket, NULL, NULL);
@@ -123,6 +71,33 @@ int WinsockSocketServer::receive (char* buffer, int lenght)
     }
 
     return iResult;
+}
+
+void WinsockSocketServer::connect ()
+{
+    throw new BadOperation{ "Attempting to perform client operation on server socket." };
+}
+
+void WinsockSocketServer::bind ()
+{
+    if (!addressInfo)
+    {
+        throw new BadWinsock{ "address info didn't setup" };
+    }
+    int iResult;
+
+    listenSocket = socket (addressInfo->ai_family, addressInfo->ai_socktype, addressInfo->ai_protocol);
+
+    if (listenSocket == INVALID_SOCKET) {
+        throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
+    }
+
+    iResult = ::bind (listenSocket, addressInfo->ai_addr, (int)addressInfo->ai_addrlen);
+    if (iResult == SOCKET_ERROR) {
+        throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
+    }
+
+    freeaddrinfo (addressInfo);
 }
 
 }

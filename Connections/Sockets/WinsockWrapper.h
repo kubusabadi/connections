@@ -8,6 +8,7 @@
 
 #include "Winsock/WinsockSocketServer.h"
 #include "Winsock/WinsockSocketClient.h"
+#include "Winsock/WinsockSocketBuilder.h"
 
 namespace connections
 {
@@ -19,7 +20,7 @@ public:
     ~WinsockWrapper ();
 
 private:
-    WinsockSocketServer ws;
+    WinsockSocketBuilder socketBuilder;
 };
 
 }

@@ -1,7 +1,7 @@
 ﻿
 /*
  * Created by Jakub Hejwowski 2019
- * kubusabadi@gmail.com
+ * kubusabadi@yahoo.com
 */
 
 
@@ -48,7 +48,7 @@ int main()
     Connections connections{ mode };
 
 #ifdef _WIN32
-    //WinsockWrapper ww;
+    WinsockWrapper ww;
 #endif
     
 	return 0;

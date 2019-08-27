@@ -1,9 +1,13 @@
+/*
+ * Created by Jakub Hejwowski 2019
+ * kubusabadi@yahoo.com
+*/
 #ifdef _WIN32
-
-#pragma once
 
 #ifndef _WINSOCK_SOCKET_CLIENT_H_
 #define _WINSOCK_SOCKET_CLIENT_H_
+
+#include "WinsockSocket.h"
 
 #include <string>
 
@@ -14,19 +18,21 @@
 namespace connections
 {
 
-class WinsockSocketClient
+class WinsockSocketClient : public WinsockSocket
 {
 public:
     WinsockSocketClient ();
     WinsockSocketClient (uint16_t port, std::string address);
-    WinsockSocketClient (uint16_t port, uint32_t address);
     WinsockSocketClient (uint16_t port); // localhost
-    ~WinsockSocketClient ();
-    void shutdown ();
+    virtual ~WinsockSocketClient ();
 
     void connect ();
     int receive (char* buffer, int lenght);
     int send (char* buffer, int lenght);
+
+    virtual void listen () override;
+    virtual void accept () override;
+    virtual void bind () override;
 
 private:
     uint16_t port = 0;
@@ -34,8 +40,7 @@ private:
     SOCKET clientSocket = INVALID_SOCKET;
     addrinfo* addrResult = NULL;
 
-    void initWinSockAPI ();
-    void resolveAddress ();
+    void setupAddressInfo ();
     void setupSocket ();
 };
 
