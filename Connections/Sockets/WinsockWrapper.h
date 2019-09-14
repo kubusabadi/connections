@@ -1,8 +1,6 @@
 
 #ifdef _WIN32
 
-#pragma once
-
 #ifndef _WINSOCK_WRAPPER_H_
 #define _WINSOCK_WRAPPER_H_
 

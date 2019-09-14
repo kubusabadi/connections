@@ -31,7 +31,10 @@ public:
     void listen () override;
     void accept () override;
     void bind () override;
+
     void connect () override;
+
+    virtual int send (char* buffer, int lenght) override;
 
     int receive (char* buffer, int lenght) override;
 

@@ -2,7 +2,7 @@
 #ifdef _WIN32
 
 #include "WinsockSocketServerTCP.h"
-#include "..//..//CommonUtils/Printer.h"
+#include "Printer.h"
 #include <iostream>
 #include <string>
 #include "Error.h"
@@ -10,7 +10,7 @@
 namespace connections
 {
 
-static const Printer PRINTER (std::cout, "Sockets TCP");
+static const Printer PRINTER (std::cout, "Sockets server TCP");
 
 WinsockSocketServerTCP::WinsockSocketServerTCP ()
 {

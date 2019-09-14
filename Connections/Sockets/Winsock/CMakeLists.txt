@@ -9,13 +9,16 @@ add_library(Winsock
     "WinsockSocketBuilder.h"
     "WinsockSocketBuilder.cpp"
     "WinsockSocketServer.h" 
-	"WinsockSocketServer.cpp" 
+    "WinsockSocketServer.cpp" 
     "WinsockSocketServerTCP.h" 
-	"WinsockSocketServerTCP.cpp"
+    "WinsockSocketServerTCP.cpp"
     "WinsockSocketServerUDP.h" 
-	"WinsockSocketServerUDP.cpp" 
+    "WinsockSocketServerUDP.cpp" 
     "WinsockSocketClient.h" 
-	"WinsockSocketClient.cpp" 
+    "WinsockSocketClient.cpp" 
+    "WinsockSocketClientTCP.h" 
+    "WinsockSocketClientTCP.cpp" 
+
 )
 
 set_property(TARGET Winsock PROPERTY CXX_STANDARD 17)

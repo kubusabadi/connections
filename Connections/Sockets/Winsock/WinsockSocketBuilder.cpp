@@ -5,11 +5,15 @@
 
 #ifdef _WIN32
 
+#include <iostream>
+
 #include "WinsockSocketBuilder.h"
 #include "WinsockSocketClient.h"
 #include "WinsockSocketServer.h"
 #include "WinsockSocketServerTCP.h"
 #include "WinsockSocketServerUDP.h"
+#include "WinsockSocketClientTCP.h"
+#include "WinsockSocketClientUDP.h"
 
 #include "Error.h"
 
@@ -51,6 +55,7 @@ WinsockSocket* WinsockSocketBuilder::buildSocket ()
     case WinsockSocket::Type::SERVER:
         return buildServer ();
     case WinsockSocket::Type::CLIENT:
+        std::cout << "Build client\n";
         return buildClient ();
     default:
         throw new BadBuilding{ "Type unspecified" };
@@ -69,17 +74,15 @@ WinsockSocket* WinsockSocketBuilder::buildClient ()
         throw new BadBuilding{ "No host specified" };
     }
 
-    //switch (protocol)
-    //{
-    //case WinsockSocket::Protocol::TCP:
-    //    return buildServer ();
-    //case WinsockSocket::Protocol::UDP:
-    //    return buildClient ();
-    //default:
-    //    throw new BadBuilding{ "Protocol unspecified" };
-    //}
-
-    return new WinsockSocketClient{ port, host };
+    switch (protocol)
+    {
+    case WinsockSocket::Protocol::TCP:
+        return new WinsockSocketClientTCP{ port, host };
+    case WinsockSocket::Protocol::UDP:
+        //return new WinsockSocketClientUDP{ port, host };
+    default:
+        throw new BadBuilding{ "Protocol unspecified" };
+    }
 }
 
 WinsockSocket* WinsockSocketBuilder::buildServer ()

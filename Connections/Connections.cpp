@@ -4,9 +4,10 @@
  * kubusabadi@yahoo.com
 */
 
-
 #include "Connections.h"
 #include "MainWindow.h"
+#include "Modes/TCPReceiving.h"
+#include "Modes/TCPSending.h"
 
 #include <iostream>
 
@@ -20,6 +21,7 @@ namespace connections
 Connections::Connections (Mode mode)
 {
     std::cout << " Picked mode: " << (int)mode << std::endl;
+    setupMode (mode);
 }
 
 void Connections::setupMode (Mode mode)
@@ -27,8 +29,16 @@ void Connections::setupMode (Mode mode)
     switch (mode)
     {
     case Mode::RECEIVE_TCP:
+#ifdef _WIN32
+        TCPReceiving tcpRecvMode;
+        tcpRecvMode.execute ();
+#endif
         break;
     case Mode::SEND_TCP:
+#ifdef _WIN32
+        TCPSending tcpSendMode;
+        tcpSendMode.execute ();
+#endif
         break;
     }
 }
@@ -46,10 +56,5 @@ int main()
 
     mw.printWelcome ();
     Connections connections{ mode };
-
-#ifdef _WIN32
-    WinsockWrapper ww;
-#endif
-    
 	return 0;
 }

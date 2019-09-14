@@ -20,6 +20,8 @@ public:
     WinsockSocketClientTCP (uint16_t port);
     virtual ~WinsockSocketClientTCP ();
 
+protected:
+    void setupAddressInfo () override;
 };
 
 }

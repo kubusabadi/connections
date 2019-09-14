@@ -17,8 +17,8 @@ WinsockSocketClient::WinsockSocketClient ()
 
 WinsockSocketClient::WinsockSocketClient (uint16_t port, std::string address) : port{ port }, host{ address }
 {
-    setupAddressInfo ();
-    setupSocket ();
+    //setupAddressInfo ();
+    //setupSocket ();
 }
 
 WinsockSocketClient::WinsockSocketClient (uint16_t port) : port{ port }
@@ -29,29 +29,14 @@ WinsockSocketClient::~WinsockSocketClient ()
 {
 }
 
-void WinsockSocketClient::setupAddressInfo ()
-{
-    int result;
-    struct addrinfo hints;
-
-    ZeroMemory (&hints, sizeof (hints));
-    hints.ai_family = AF_INET;
-    hints.ai_socktype = SOCK_STREAM;
-    hints.ai_protocol = IPPROTO_TCP;
-
-    result = getaddrinfo (host.c_str (), std::to_string (port).c_str (), &hints, &addrResult);
-
-    if (result != 0)
-    {
-        throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
-    }
-
-    PRINTER << "Resolve address " <<  port << Printer::endl;
-}
-
 void WinsockSocketClient::connect ()
 {
     int iResult = ::connect (clientSocket, addrResult->ai_addr, (int)addrResult->ai_addrlen);
+
+    if (iResult == SOCKET_ERROR)
+    {
+        throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
+    }
 }
 
 void WinsockSocketClient::setupSocket ()
@@ -96,10 +81,17 @@ void WinsockSocketClient::accept ()
 int WinsockSocketClient::send (char* buffer, int lenght)
 {
     int iResult = ::send (clientSocket, buffer, lenght, 0);
+
+    if (iResult == SOCKET_ERROR)
+    {
+        throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
+    }
+
     return iResult;
 }
 void WinsockSocketClient::bind ()
 {
+    throw new BadOperation{ "Attempting to perform server operation on client socket." };
 }
 
 }

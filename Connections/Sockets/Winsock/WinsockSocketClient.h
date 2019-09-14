@@ -26,21 +26,22 @@ public:
     WinsockSocketClient (uint16_t port); // localhost
     virtual ~WinsockSocketClient ();
 
-    void connect ();
+    virtual void connect () override;
     int receive (char* buffer, int lenght);
-    int send (char* buffer, int lenght);
+
+    virtual int send (char* buffer, int lenght) override;
 
     virtual void listen () override;
     virtual void accept () override;
     virtual void bind () override;
 
-private:
+protected:
     uint16_t port = 0;
     std::string host = "";
     SOCKET clientSocket = INVALID_SOCKET;
     addrinfo* addrResult = NULL;
 
-    void setupAddressInfo ();
+    virtual void setupAddressInfo () = 0;
     void setupSocket ();
 };
 

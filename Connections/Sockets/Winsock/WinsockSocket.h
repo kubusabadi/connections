@@ -63,6 +63,9 @@ public:
     // Client API
     virtual void connect () = 0;
 
+    // Common API
+    virtual int send (char* buffer, int lenght) = 0;
+
 protected:
     void initWinSockAPI ();
 };

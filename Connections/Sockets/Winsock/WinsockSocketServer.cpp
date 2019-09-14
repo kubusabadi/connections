@@ -5,7 +5,7 @@
 #ifdef _WIN32
 
 #include "WinsockSocketServer.h"
-#include "..//..//CommonUtils/Printer.h"
+#include "Printer.h"
 #include <iostream>
 #include <string>
 #include "Error.h"
@@ -98,6 +98,11 @@ void WinsockSocketServer::bind ()
     }
 
     freeaddrinfo (addressInfo);
+}
+
+int WinsockSocketServer::send (char* buffer, int lenght)
+{
+    return 0;
 }
 
 }
