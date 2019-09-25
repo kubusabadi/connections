@@ -29,20 +29,9 @@ WinsockSocketServerTCP::~WinsockSocketServerTCP ()
 
 void WinsockSocketServerTCP::setupAddressInfo ()
 {
-    int result;
-    struct addrinfo hints;
-
-    ZeroMemory (&hints, sizeof (hints));
-    hints.ai_family = AF_INET;
-    hints.ai_socktype = SOCK_STREAM;
-    hints.ai_protocol = IPPROTO_TCP;
-    hints.ai_flags = AI_PASSIVE;
-
-    result = getaddrinfo (NULL, std::to_string (port).c_str (), &hints, &addressInfo);
-
-    if (result != 0) {
-        throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
-    }
+    listenSockAddr.sin_family = AF_INET;
+    listenSockAddr.sin_addr.s_addr = inet_addr ("127.0.0.1");
+    listenSockAddr.sin_port = htons (port);
 
     PRINTER << "Resolve address " << port << Printer::endl;
 }

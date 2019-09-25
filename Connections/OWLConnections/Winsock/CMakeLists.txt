@@ -24,4 +24,4 @@ add_library(Winsock
 set_property(TARGET Winsock PROPERTY CXX_STANDARD 17)
 
 target_link_libraries(Winsock wsock32 ws2_32 CommonUtils)
-target_include_directories(Winsock PRIVATE  ${CMAKE_CURRENT_SOURCE_DIR}/../../CommonUtils)
+target_include_directories(Winsock PRIVATE  ${CMAKE_CURRENT_SOURCE_DIR}/../CommonUtils)

@@ -12,7 +12,7 @@
 #include <iostream>
 
 #ifdef _WIN32
-#include "Sockets/WinsockWrapper.h"
+#include "OWLConnections/WinsockWrapper.h"
 #endif
 
 namespace connections

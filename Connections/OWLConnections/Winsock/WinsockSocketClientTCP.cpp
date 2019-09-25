@@ -39,17 +39,9 @@ void WinsockSocketClientTCP::setupAddressInfo ()
     int result;
     struct addrinfo hints;
 
-    ZeroMemory (&hints, sizeof (hints));
-    hints.ai_family = AF_INET;
-    hints.ai_socktype = SOCK_STREAM;
-    hints.ai_protocol = IPPROTO_TCP;
-
-    result = getaddrinfo (host.c_str (), std::to_string (port).c_str (), &hints, &addrResult);
-
-    if (result != 0)
-    {
-        throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
-    }
+    sockAddr.sin_family = AF_INET;
+    sockAddr.sin_addr.s_addr = inet_addr (host.c_str ());
+    sockAddr.sin_port = htons (port);
 
     PRINTER << "Resolve address " << port << Printer::endl;
 }

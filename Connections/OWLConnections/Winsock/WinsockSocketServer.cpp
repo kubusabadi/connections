@@ -54,9 +54,9 @@ void WinsockSocketServer::accept()
     }
 }
 
-int WinsockSocketServer::receive (char* buffer, int lenght)
+int WinsockSocketServer::recv (char* buffer, int lenght)
 {
-    int iResult = recv (clientSocket, buffer, lenght, 0);
+    int iResult = ::recv (clientSocket, buffer, lenght, 0);
     if (iResult == lenght)
     {
         buffer[iResult-1] = '\0';
@@ -80,24 +80,18 @@ void WinsockSocketServer::connect ()
 
 void WinsockSocketServer::bind ()
 {
-    if (!addressInfo)
-    {
-        throw new BadWinsock{ "address info didn't setup" };
-    }
     int iResult;
 
-    listenSocket = socket (addressInfo->ai_family, addressInfo->ai_socktype, addressInfo->ai_protocol);
+    listenSocket = socket (AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
     if (listenSocket == INVALID_SOCKET) {
         throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
     }
 
-    iResult = ::bind (listenSocket, addressInfo->ai_addr, (int)addressInfo->ai_addrlen);
+    iResult = ::bind (listenSocket, (SOCKADDR*) &listenSockAddr, sizeof(listenSockAddr));
     if (iResult == SOCKET_ERROR) {
         throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
     }
-
-    freeaddrinfo (addressInfo);
 }
 
 int WinsockSocketServer::send (char* buffer, int lenght)

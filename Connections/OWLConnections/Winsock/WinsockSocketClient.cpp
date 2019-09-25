@@ -2,7 +2,7 @@
 #ifdef _WIN32
 
 #include "WinsockSocketClient.h"
-#include "..//..//CommonUtils/Printer.h"
+#include "Printer.h"
 #include <iostream>
 #include <string>
 #include "Error.h"
@@ -31,7 +31,7 @@ WinsockSocketClient::~WinsockSocketClient ()
 
 void WinsockSocketClient::connect ()
 {
-    int iResult = ::connect (clientSocket, addrResult->ai_addr, (int)addrResult->ai_addrlen);
+    int iResult = ::connect (clientSocket, (SOCKADDR*)&sockAddr, sizeof(sockAddr));
 
     if (iResult == SOCKET_ERROR)
     {
@@ -41,8 +41,7 @@ void WinsockSocketClient::connect ()
 
 void WinsockSocketClient::setupSocket ()
 {
-    clientSocket = socket (addrResult->ai_family, addrResult->ai_socktype,
-        addrResult->ai_protocol);
+    clientSocket = socket (AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
     if (clientSocket == INVALID_SOCKET)
     {
@@ -50,9 +49,9 @@ void WinsockSocketClient::setupSocket ()
     }
 }
 
-int WinsockSocketClient::receive (char* buffer, int lenght)
+int WinsockSocketClient::recv (char* buffer, int lenght)
 {
-    int iResult = recv (clientSocket, buffer, lenght, 0);
+    int iResult = ::recv (clientSocket, buffer, lenght, 0);
     if (iResult == lenght)
     {
         buffer[iResult - 1] = '\0';

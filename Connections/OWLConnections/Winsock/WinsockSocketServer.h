@@ -36,13 +36,14 @@ public:
 
     virtual int send (char* buffer, int lenght) override;
 
-    int receive (char* buffer, int lenght) override;
+    int recv (char* buffer, int lenght) override;
 
 protected:
     uint16_t port = 0;
     SOCKET listenSocket = INVALID_SOCKET;
     SOCKET clientSocket = INVALID_SOCKET;
-    addrinfo* addressInfo = NULL;
+
+    sockaddr_in listenSockAddr;
 
     virtual void setupAddressInfo () = 0;
 };

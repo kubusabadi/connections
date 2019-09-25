@@ -27,7 +27,7 @@ public:
     virtual ~WinsockSocketClient ();
 
     virtual void connect () override;
-    int receive (char* buffer, int lenght);
+    int recv (char* buffer, int lenght);
 
     virtual int send (char* buffer, int lenght) override;
 
@@ -39,7 +39,7 @@ protected:
     uint16_t port = 0;
     std::string host = "";
     SOCKET clientSocket = INVALID_SOCKET;
-    addrinfo* addrResult = NULL;
+    sockaddr_in sockAddr;
 
     virtual void setupAddressInfo () = 0;
     void setupSocket ();

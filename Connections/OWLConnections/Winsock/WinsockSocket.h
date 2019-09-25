@@ -53,8 +53,7 @@ public:
     virtual ~WinsockSocket ();
 
     virtual void shutdown ();
-    virtual int receive (char* buffer, int lenght) = 0;
-    
+
     // Server API
     virtual void listen () = 0;
     virtual void accept () = 0;
@@ -65,6 +64,9 @@ public:
 
     // Common API
     virtual int send (char* buffer, int lenght) = 0;
+    virtual int recv (char* buffer, int lenght) = 0;
+    
+   // virtual int recvfrom (char* buffer, int lenght) = 0;
 
 protected:
     void initWinSockAPI ();
