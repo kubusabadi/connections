@@ -15,13 +15,21 @@ namespace connections
 class WinsockSocketClientTCP : public WinsockSocketClient
 {
 public:
-    WinsockSocketClientTCP ();
     WinsockSocketClientTCP (uint16_t port, std::string address);
-    WinsockSocketClientTCP (uint16_t port);
     virtual ~WinsockSocketClientTCP ();
 
-protected:
-    void setupAddressInfo () override;
+    int recv (char* buffer, int lenght) override;
+    int send (char* buffer, int lenght) override;
+    void connect () override;
+
+    int recvfrom (char* buffer, int lenght) override;
+    int sendto (char* buffer, int lenght) override;
+
+private:
+    SOCKET clientSocket = INVALID_SOCKET;
+    sockaddr_in sockAddr;
+
+    void setupSocket ();
 };
 
 }

@@ -17,7 +17,9 @@ add_library(Winsock
     "WinsockSocketClient.h" 
     "WinsockSocketClient.cpp" 
     "WinsockSocketClientTCP.h" 
-    "WinsockSocketClientTCP.cpp" 
+    "WinsockSocketClientTCP.cpp"
+    "WinsockSocketClientUDP.h" 
+    "WinsockSocketClientUDP.cpp"
 
 )
 

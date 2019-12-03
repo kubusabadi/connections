@@ -55,7 +55,6 @@ WinsockSocket* WinsockSocketBuilder::buildSocket ()
     case WinsockSocket::Type::SERVER:
         return buildServer ();
     case WinsockSocket::Type::CLIENT:
-        std::cout << "Build client\n";
         return buildClient ();
     default:
         throw new BadBuilding{ "Type unspecified" };
@@ -79,7 +78,7 @@ WinsockSocket* WinsockSocketBuilder::buildClient ()
     case WinsockSocket::Protocol::TCP:
         return new WinsockSocketClientTCP{ port, host };
     case WinsockSocket::Protocol::UDP:
-        //return new WinsockSocketClientUDP{ port, host };
+        return new WinsockSocketClientUDP{ port, host };
     default:
         throw new BadBuilding{ "Protocol unspecified" };
     }

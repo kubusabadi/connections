@@ -11,12 +11,25 @@ namespace connections
 class WinsockSocketServerUDP : public WinsockSocketServer
 {
 public:
-    WinsockSocketServerUDP ();
     WinsockSocketServerUDP (uint16_t srvPort);
     ~WinsockSocketServerUDP ();
 
-protected:
-    void setupAddressInfo () override;
+    void listen () override;
+    void accept () override;
+    void bind () override;
+
+    int recvfrom (char* buffer, int lenght) override;
+    int sendto (char* buffer, int lenght) override;
+
+    int send (char* buffer, int lenght) override;
+    int recv (char* buffer, int lenght) override;
+
+private:
+    SOCKET listenSocket = INVALID_SOCKET;
+
+    sockaddr_in sockAddr;
+
+    void setupSocket ();
 };
 
 }

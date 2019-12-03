@@ -8,11 +8,22 @@ add_executable (Connections
     "Connections.h" 
     "MainWindow.h" 
     "MainWindow.cpp"
+    "Modes/TCPEchoClient.h"
+    "Modes/TCPEchoClient.cpp"
+    "Modes/TCPEchoServer.h"
+    "Modes/TCPEchoServer.cpp"
     "Modes/TCPReceiving.h"
     "Modes/TCPReceiving.cpp"
     "Modes/TCPSending.h"
     "Modes/TCPSending.cpp"
+    "Modes/UDPReceiving.h"
+    "Modes/UDPSending.h"
+    "Modes/UDPReceiving.cpp"
+    "Modes/UDPSending.cpp"
+    "Modes/UDPEchoServer.h"
+    "Modes/UDPEchoServer.cpp"
 )
+
 
 set_property(TARGET Connections PROPERTY CXX_STANDARD 17)
 

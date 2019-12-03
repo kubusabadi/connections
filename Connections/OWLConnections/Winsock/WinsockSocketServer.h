@@ -24,28 +24,14 @@ namespace connections
 class WinsockSocketServer : public WinsockSocket
 {
 public:
-    WinsockSocketServer ();
     WinsockSocketServer (uint16_t srvPort); // localhost
     virtual ~WinsockSocketServer ();
 
-    void listen () override;
-    void accept () override;
-    void bind () override;
-
     void connect () override;
-
-    virtual int send (char* buffer, int lenght) override;
-
-    int recv (char* buffer, int lenght) override;
 
 protected:
     uint16_t port = 0;
-    SOCKET listenSocket = INVALID_SOCKET;
-    SOCKET clientSocket = INVALID_SOCKET;
 
-    sockaddr_in listenSockAddr;
-
-    virtual void setupAddressInfo () = 0;
 };
 
 }

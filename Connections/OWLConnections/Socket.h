@@ -1,35 +1,67 @@
+/*
+ * Created by Jakub Hejwowski 2019
+ * kubusabadi@yahoo.com
+*/
+
+/*
+ *              TCP                             UDP
+
+ *       Server         Client
+ *         |              |
+ *       Socket         Socket
+ *         |              |
+ *     SetSockOpt         |
+ *         |              |
+ *        Bind            |
+ *         |              |
+ *       Listen  <---  Connect             Connectionless
+ *         |              |
+ *       Accept           |                   No accept
+ *         |              |
+ *     Send/Recv  <-> Send/Recv            Sendto/Recvfrom
+ */
+
 #pragma once
 
 #ifndef _SOCKET_H_
 #define _SOCKET_H_
 
-#include <stdint.h>
-
 namespace connections
 {
-
-class SocketListener
-{
-public:
-    virtual void onReceive (uint8_t* buffer, size_t size ) = 0;
-};
 
 class Socket
 {
 public:
-    virtual void send (uint8_t* buffer, size_t size) = 0;
-    virtual ~Socket () = default;
+    enum class Protocol
+    {
+        UNSPEC,
+        TCP,
+        UDP
+    };
+
+    enum class Type
+    {
+        UNSPEC,
+        SERVER,
+        CLIENT
+    };
+
+    // Server API
+    virtual void listen () = 0;
+    virtual void accept () = 0;
+    virtual void bind () = 0;
+
+    // Client API
+    virtual void connect () = 0;
+
+    // Common API
+    virtual int send (char* buffer, int lenght) = 0;
+    virtual int recv (char* buffer, int lenght) = 0;
+
+    virtual int recvfrom (char* buffer, int lenght) = 0;
+    virtual int sendto (char* buffer, int lenght) = 0;
 };
 
-class SocketClient : public Socket
-{
-      
-};
-
-class SocketServer
-{
-
-};
 }
 
-#endif // !_SOCKET_H_
+#endif

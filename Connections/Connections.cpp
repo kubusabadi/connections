@@ -6,14 +6,15 @@
 
 #include "Connections.h"
 #include "MainWindow.h"
+#include "Modes/TCPEchoServer.h"
+#include "Modes/TCPEchoClient.h"
 #include "Modes/TCPReceiving.h"
 #include "Modes/TCPSending.h"
+#include "Modes/UDPReceiving.h"
+#include "Modes/UDPSending.h"
+#include "Modes/UDPEchoServer.h"
 
 #include <iostream>
-
-#ifdef _WIN32
-#include "OWLConnections/WinsockWrapper.h"
-#endif
 
 namespace connections
 {
@@ -40,6 +41,36 @@ void Connections::setupMode (Mode mode)
         tcpSendMode.execute ();
 #endif
         break;
+    case Mode::RECEIVE_UDP:
+#ifdef _WIN32
+        UDPReceiving udpReceivingMode;
+        udpReceivingMode.execute ();
+#endif
+        break;
+    case Mode::SEND_UDP:
+#ifdef _WIN32
+        UDPSending udpSendingMode;
+        udpSendingMode.execute ();
+#endif
+        break;
+    case Mode::TCP_ECHO_SERVER:
+#ifdef _WIN32
+        TCPEchoServer echoServer;
+        echoServer.execute ();
+#endif
+        break;
+    case Mode::TCP_ECHO_CLIENT:
+#ifdef _WIN32
+        TCPEchoClient echoClient;
+        echoClient.execute ();
+#endif
+        break;
+    case Mode::UDP_ECHO_SERVER:
+#ifdef _WIN32
+        UDPEchoServer udpEchoServer;
+        udpEchoServer.execute ();
+#endif
+        break;
     }
 }
 
@@ -52,9 +83,18 @@ int main()
     MainWindow mw;
     mw.printWelcome ();
     
-    Mode mode = mw.promptForMode ();
+    while (true)
+    {
+        Mode mode = mw.promptForMode ();
+        
+        if (mode == Mode::EXIT)
+        {
+            break;
+        }
 
-    mw.printWelcome ();
-    Connections connections{ mode };
+        mw.printWelcome ();
+        Connections connections{ mode };
+    }
+
 	return 0;
 }

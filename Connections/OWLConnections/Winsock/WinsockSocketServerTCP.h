@@ -12,12 +12,26 @@ namespace connections
 class WinsockSocketServerTCP : public WinsockSocketServer
 {
 public:
-    WinsockSocketServerTCP ();
     WinsockSocketServerTCP (uint16_t srvPort); // localhost
     ~WinsockSocketServerTCP ();
 
-protected:
-    void setupAddressInfo () override;
+    void listen () override;
+    void accept () override;
+    void bind () override;
+
+    int send (char* buffer, int lenght) override;
+    int recv (char* buffer, int lenght) override;
+
+    int recvfrom (char* buffer, int lenght) override;
+    int sendto (char* buffer, int lenght) override;
+
+private:
+    SOCKET listenSocket = INVALID_SOCKET;
+    SOCKET clientSocket = INVALID_SOCKET;
+
+    sockaddr_in sockAddr;
+
+    void setupSocket ();
 };
 
 }
