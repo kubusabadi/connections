@@ -22,6 +22,8 @@ add_executable (Connections
     "Modes/UDPSending.cpp"
     "Modes/UDPEchoServer.h"
     "Modes/UDPEchoServer.cpp"
+    "Modes/UDPEchoClient.h"
+    "Modes/UDPEchoClient.cpp"
 )
 
 

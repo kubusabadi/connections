@@ -23,6 +23,7 @@ public:
 
     int send (char* buffer, int lenght) override;
     int recv (char* buffer, int lenght) override;
+    int close () override;
 
 private:
     SOCKET listenSocket = INVALID_SOCKET;

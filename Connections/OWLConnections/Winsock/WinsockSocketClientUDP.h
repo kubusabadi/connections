@@ -25,6 +25,8 @@ public:
     int recv (char* buffer, int lenght) override;
     void connect () override;
 
+    int close () override;
+
 private:
     SOCKET clientSocket = INVALID_SOCKET;
     sockaddr_in sockAddr;

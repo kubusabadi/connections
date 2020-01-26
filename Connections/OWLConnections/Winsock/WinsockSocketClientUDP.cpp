@@ -41,7 +41,24 @@ void WinsockSocketClientUDP::setupSocket ()
 
 int WinsockSocketClientUDP::recvfrom (char* buffer, int lenght)
 {
-    return 0;
+    int sockAddrSize = sizeof (sockAddr);
+    int iResult = ::recvfrom (clientSocket, buffer, lenght, 0, (sockaddr*)&sockAddr, &sockAddrSize);
+
+    if (iResult == SOCKET_ERROR)
+    {
+        throw new BadWinsock{ getWSAError (WSAGetLastError ()) };
+    }
+
+    if (iResult == lenght)
+    {
+        buffer[iResult - 1] = '\0';
+    }
+    else
+    {
+        buffer[iResult] = '\0';
+    }
+
+    return iResult;
 }
 
 int WinsockSocketClientUDP::sendto (char* buffer, int lenght)
@@ -55,6 +72,12 @@ int WinsockSocketClientUDP::sendto (char* buffer, int lenght)
 
     return iResult;
 }
+
+int WinsockSocketClientUDP::close ()
+{
+    return closesocket (clientSocket);
+}
+
 
 int WinsockSocketClientUDP::recv (char* buffer, int lenght)
 {

@@ -4,27 +4,29 @@
     <list default="true" id="5b4dab0f-8e48-4a62-b6f2-3154ac8219e2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../Connections/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Connections/Connections.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/Connections.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Connections/Connections.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/Connections.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/TCPConnection.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/TCPConnection.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Connections/Modes/TCPEchoClient.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/Modes/TCPEchoClient.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Connections/Modes/TCPEchoServer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/Modes/TCPEchoServer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Connections/Modes/TCPReceiving.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/Modes/TCPReceiving.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Connections/Modes/TCPSending.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/Modes/TCPSending.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Connections/Modes/UDPEchoClient.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/Modes/UDPEchoClient.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Connections/Modes/UDPEchoServer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/Modes/UDPEchoServer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Connections/Modes/UDPReceiving.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/Modes/UDPReceiving.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Connections/Modes/UDPSending.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/Modes/UDPSending.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/OWLConnections/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/Socket.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/OWLConnections/Socket.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/SocketBuilder.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/OWLConnections/SocketBuilder.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/SocketBuilder.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/OWLConnections/SocketBuilder.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocket.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocket.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketBuilder.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketBuilder.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketClient.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketClient.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketClient.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketClient.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketClientTCP.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketClientTCP.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketClientTCP.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketClientTCP.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketClientUDP.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketClientUDP.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketClientUDP.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketClientUDP.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketServer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketServer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketServer.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketServer.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketServerTCP.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketServerTCP.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketServerTCP.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketServerTCP.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketServerUDP.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketServerUDP.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketServerUDP.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Connections/OWLConnections/Winsock/WinsockSocketServerUDP.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/send_frame_tcp.py" beforeDir="false" afterPath="$PROJECT_DIR$/send_frame_tcp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wait_for_frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/wait_for_frame_udp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/udp_echo_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/udp_echo_client.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -59,7 +61,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.udp_echo_client">
+  <component name="RunManager" selected="Python.tcp_echo_server">
     <configuration name="send_frame_udp" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="scripts" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -144,7 +146,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="wait_for_frame_udp" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="udp_echo_server" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="scripts" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -156,7 +158,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/wait_for_frame_udp.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/udp_echo_server.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -167,11 +169,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.udp_echo_client" />
         <item itemvalue="Python.tcp_echo_server" />
         <item itemvalue="Python.tcp_echo_client" />
+        <item itemvalue="Python.udp_echo_server" />
+        <item itemvalue="Python.udp_echo_client" />
         <item itemvalue="Python.send_frame_udp" />
-        <item itemvalue="Python.wait_for_frame_udp" />
       </list>
     </recent_temporary>
   </component>
@@ -200,5 +202,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/wait_for_frame_udp.py</url>
+          <line>10</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -92,6 +92,12 @@ int WinsockSocketClientTCP::send (char* buffer, int lenght)
 
     return iResult;
 }
+
+int WinsockSocketClientTCP::close ()
+{
+    return closesocket (clientSocket);
+}
+
 }
 
 #endif

@@ -30,4 +30,4 @@ if __name__ == '__main__':
     bytes_data_exit = str.encode(MESSAGE_EXIT)
     s.sendto(bytes_data_exit, address)
 
-    print("exit")
+    # print("exit")

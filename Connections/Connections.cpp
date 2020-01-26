@@ -13,6 +13,7 @@
 #include "Modes/UDPReceiving.h"
 #include "Modes/UDPSending.h"
 #include "Modes/UDPEchoServer.h"
+#include "Modes/UDPEchoClient.h"
 
 #include <iostream>
 
@@ -69,6 +70,12 @@ void Connections::setupMode (Mode mode)
 #ifdef _WIN32
         UDPEchoServer udpEchoServer;
         udpEchoServer.execute ();
+#endif
+        break;
+    case Mode::UDP_ECHO_CLIENT:
+#ifdef _WIN32
+        UDPEchoClient udpEchoClient;
+        udpEchoClient.execute ();
 #endif
         break;
     }

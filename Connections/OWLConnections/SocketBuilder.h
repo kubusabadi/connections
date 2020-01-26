@@ -12,6 +12,11 @@
 
 #include <string>
 
+#ifdef WIN32
+#include "Winsock/WinsockSocketBuilder.h"
+#endif
+
+
 namespace connections
 {
 
@@ -28,9 +33,6 @@ public:
     Socket* buildSocket ();
 
 private:
-    Socket* buildClient ();
-    Socket* buildServer ();
-
     bool portSet () { return port != 0; }
     bool hostSet () { return !host.empty (); }
 
@@ -38,6 +40,10 @@ private:
     std::string host = "";
     Socket::Type type = Socket::Type::UNSPEC;
     Socket::Protocol protocol = Socket::Protocol::UNSPEC;
+
+#ifdef WIN32
+    WinsockSocket* buildWinsock (WinsockSocket::Type type, WinsockSocket::Protocol protocol);
+#endif
 };
 
 }

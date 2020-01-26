@@ -4,6 +4,8 @@ add_library(OWLConnections
     "Socket.h"
     "SocketBuilder.h"
     "SocketBuilder.cpp"
+    "SocketWinsock.h"
+    "SocketWinsock.cpp"
 )
 
 set_property(TARGET OWLConnections PROPERTY CXX_STANDARD 17)

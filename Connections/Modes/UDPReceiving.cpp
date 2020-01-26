@@ -3,21 +3,18 @@
 
 #include <iostream>
 
-#ifdef _WIN32
-#include "Winsock/WinsockSocketServer.h"
-#include "Winsock/WinsockSocketClient.h"
-#include "Winsock/WinsockSocketBuilder.h"
-#endif
+#include "Socket.h"
+#include "SocketBuilder.h"
 
 namespace connections
 {
 
 void UDPReceiving::execute ()
 {
-    WinsockSocketBuilder socketBuilder;
-    WinsockSocket* ws = socketBuilder.addPort (50000)
-        .forType (WinsockSocket::Type::SERVER)
-        .forProtocol (WinsockSocket::Protocol::UDP)
+    SocketBuilder socketBuilder;
+    Socket* ws = socketBuilder.addPort (50000)
+        .forType (Socket::Type::SERVER)
+        .forProtocol (Socket::Protocol::UDP)
         .buildSocket ();
 
     ws->bind ();
@@ -30,7 +27,7 @@ void UDPReceiving::execute ()
     {
         std::cout << buffer << std::endl;
     }
-
+    ws->close ();
     delete ws;
 }
 

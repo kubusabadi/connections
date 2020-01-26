@@ -2,22 +2,18 @@
 #include "TCPEchoServer.h"
 
 #include <iostream>
-
-#ifdef _WIN32
-#include "Winsock/WinsockSocketServer.h"
-#include "Winsock/WinsockSocketClient.h"
-#include "Winsock/WinsockSocketBuilder.h"
-#endif
+#include "Socket.h"
+#include "SocketBuilder.h"
 
 namespace connections
 {
 
 void TCPEchoServer::execute ()
 {
-    WinsockSocketBuilder socketBuilder;
-    WinsockSocket* ws = socketBuilder.addPort (50000)
-        .forType (WinsockSocket::Type::SERVER)
-        .forProtocol (WinsockSocket::Protocol::TCP)
+    SocketBuilder socketBuilder;
+    Socket* ws = socketBuilder.addPort (50000)
+        .forType (Socket::Type::SERVER)
+        .forProtocol (Socket::Protocol::TCP)
         .buildSocket ();
 
     ws->bind ();
@@ -44,6 +40,8 @@ void TCPEchoServer::execute ()
 
     } while (!exit);
 
+
+    ws->close ();
     delete ws;
 }
 }

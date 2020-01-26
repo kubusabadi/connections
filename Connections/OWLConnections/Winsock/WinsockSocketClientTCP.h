@@ -24,7 +24,7 @@ public:
 
     int recvfrom (char* buffer, int lenght) override;
     int sendto (char* buffer, int lenght) override;
-
+    int close () override;
 private:
     SOCKET clientSocket = INVALID_SOCKET;
     sockaddr_in sockAddr;

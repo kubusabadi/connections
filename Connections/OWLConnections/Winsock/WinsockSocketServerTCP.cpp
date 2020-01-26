@@ -105,6 +105,13 @@ int WinsockSocketServerTCP::recv (char* buffer, int lenght)
     return iResult;
 }
 
+int WinsockSocketServerTCP::close ()
+{
+    closesocket (clientSocket);
+    return closesocket (listenSocket);
+}
+
+
 int WinsockSocketServerTCP::recvfrom (char* buffer, int lenght)
 {
     throw new BadOperation{ "Attempting to perform udp operation on tcp socket." };

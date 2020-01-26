@@ -68,6 +68,7 @@ public:
     
     virtual int recvfrom (char* buffer, int lenght) = 0;
     virtual int sendto (char* buffer, int lenght) = 0;
+    virtual int close () = 0;
 
 protected:
     void initWinSockAPI ();

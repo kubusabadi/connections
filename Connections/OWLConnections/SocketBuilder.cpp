@@ -1,10 +1,6 @@
 
 #include "SocketBuilder.h"
-
-#ifdef WIN32
-#include "Winsock/WinsockSocketBuilder.h"
-#endif
-
+#include "SocketWinsock.h"
 
 namespace connections
 {
@@ -40,23 +36,31 @@ SocketBuilder& SocketBuilder::forProtocol (Socket::Protocol sockProtocol)
 
 Socket* SocketBuilder::buildSocket ()
 {
-    switch (type)
-    {
-    case Socket::Type::SERVER:
-        return buildServer ();
-    case Socket::Type::CLIENT:
-        return buildClient ();
-    }
-}
+#ifdef WIN32
+    WinsockSocket::Type wtype = (type == Socket::Type::CLIENT) ?
+        WinsockSocket::Type::CLIENT : WinsockSocket::Type::SERVER;
 
-Socket* SocketBuilder::buildClient ()
-{
+    WinsockSocket::Protocol wprotocol = (protocol == Socket::Protocol::TCP) ?
+        WinsockSocket::Protocol::TCP : WinsockSocket::Protocol::UDP;
+
+    WinsockSocket* ws = buildWinsock (wtype, wprotocol);
+
+    return new SocketWinsock (ws);
+#endif
     return nullptr;
 }
 
-Socket* SocketBuilder::buildServer ()
+#ifdef WIN32
+WinsockSocket* SocketBuilder::buildWinsock (WinsockSocket::Type type, WinsockSocket::Protocol protocol)
 {
-    return nullptr;
+    WinsockSocketBuilder socketBuilder;
+    return socketBuilder.addHost (host)
+        .addPort (port)
+        .forType (type)
+        .forProtocol (protocol)
+        .buildSocket();
 }
+#endif
+
 
 }

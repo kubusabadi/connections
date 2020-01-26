@@ -1,24 +1,31 @@
+/*
+ * Created by Jakub Hejwowski 2019
+ * kubusabadi@yahoo.com
+*/
 
 #ifdef _WIN32
 
-#ifndef _WINSOCK_SOCKET_SERVER_TCP_H_
-#define _WINSOCK_SOCKET_SERVER_TCP_H_
+#include "Socket.h"
 
-#include "WinsockSocketServer.h"
+#include "Winsock/WinsockSocket.h"
 
 namespace connections
 {
 
-class WinsockSocketServerTCP : public WinsockSocketServer
+class SocketWinsock : public Socket
 {
 public:
-    WinsockSocketServerTCP (uint16_t srvPort); // localhost
-    ~WinsockSocketServerTCP ();
+    SocketWinsock (WinsockSocket*);
 
+    // Server API
     void listen () override;
     void accept () override;
     void bind () override;
 
+    // Client API
+    void connect () override;
+
+    // Common API
     int send (char* buffer, int lenght) override;
     int recv (char* buffer, int lenght) override;
 
@@ -28,14 +35,9 @@ public:
     int close () override;
 
 private:
-    SOCKET listenSocket = INVALID_SOCKET;
-    SOCKET clientSocket = INVALID_SOCKET;
-
-    sockaddr_in sockAddr;
-
-    void setupSocket ();
+    WinsockSocket* winsockSocket;
 };
 
 }
-#endif
+
 #endif

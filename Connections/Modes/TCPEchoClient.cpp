@@ -4,11 +4,8 @@
 #include <vector>
 #include <string>
 
-#ifdef _WIN32
-#include "Winsock/WinsockSocketServer.h"
-#include "Winsock/WinsockSocketClient.h"
-#include "Winsock/WinsockSocketBuilder.h"
-#endif
+#include "Socket.h"
+#include "SocketBuilder.h"
 
 namespace connections
 {
@@ -22,18 +19,16 @@ static const std::vector<char*> messages = {
 
 void TCPEchoClient::execute ()
 {
-    WinsockSocketBuilder socketBuilder;
-    WinsockSocket* ws = socketBuilder.addPort (50000)
+    SocketBuilder socketBuilder;
+    Socket* ws = socketBuilder.addPort (50000)
         .addHost ("127.0.0.1")
-        .forType (WinsockSocket::Type::CLIENT)
-        .forProtocol (WinsockSocket::Protocol::TCP)
+        .forType (Socket::Type::CLIENT)
+        .forProtocol (Socket::Protocol::TCP)
         .buildSocket ();
-
 
     ws->connect ();
 
     const int BUFF_LEN = 1024;
-
 
     for (const auto& s : messages)
     {
@@ -46,7 +41,7 @@ void TCPEchoClient::execute ()
             std::cout << "received: " << buffer << std::endl;
         }
     }
-
+    ws->close ();
     delete ws;
 }
 }

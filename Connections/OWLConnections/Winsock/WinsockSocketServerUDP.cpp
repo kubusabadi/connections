@@ -82,6 +82,11 @@ int WinsockSocketServerUDP::sendto (char* buffer, int lenght)
     return iResult;
 }
 
+int WinsockSocketServerUDP::close ()
+{
+    return closesocket (listenSocket);
+}
+
 int WinsockSocketServerUDP::send (char* buffer, int lenght)
 {
     throw new BadOperation{ "Attempting to perform udp operation on tcp socket." };
@@ -101,7 +106,6 @@ void WinsockSocketServerUDP::accept ()
 {
     throw new BadOperation{ "Attempting to perform udp operation on tcp socket." };
 }
-
 
 }
 

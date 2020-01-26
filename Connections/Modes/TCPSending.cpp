@@ -1,11 +1,8 @@
 
 #include "TCPSending.h"
 
-#ifdef _WIN32
-#include "Winsock/WinsockSocketServer.h"
-#include "Winsock/WinsockSocketClient.h"
-#include "Winsock/WinsockSocketBuilder.h"
-#endif
+#include "Socket.h"
+#include "SocketBuilder.h"
 
 #include <iostream>
 
@@ -14,11 +11,11 @@ namespace connections
 
 void TCPSending::execute ()
 {
-    WinsockSocketBuilder socketBuilder;
-    WinsockSocket* ws = socketBuilder.addPort (50000)
+    SocketBuilder socketBuilder;
+    Socket* ws = socketBuilder.addPort (50000)
         .addHost("127.0.0.1")
-        .forType (WinsockSocket::Type::CLIENT)
-        .forProtocol (WinsockSocket::Protocol::TCP)
+        .forType (Socket::Type::CLIENT)
+        .forProtocol (Socket::Protocol::TCP)
         .buildSocket ();
 
     std::cout << "client built\n";
@@ -30,6 +27,10 @@ void TCPSending::execute ()
     std::cout << sizeof (buffer) << std::endl;
 
     ws->send (buffer, sizeof (buffer));
+
+    ws->close ();
+
+    delete ws;
 }
 
 }
